@@ -1,2 +1,2 @@
-avatar-feedaggregator
+avatar-twitterwall
 =====================
