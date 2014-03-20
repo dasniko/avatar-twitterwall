@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<!-- License Information : https://java.net/projects/avatar/sources/git/content/legal/header.txt -->
+    <head>
+        <title>Hello Tweeds!</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <body>
+       <script data-model="push">
+            var TwitterModel = function() {
+                this.items = [];
+            }
+        </script>
+        <script data-type="TwitterModel" data-instance="tw" data-url="push/tweeds"></script>
+
+        <div style="width:650px;height:600px">
+            <div data-widget="stackContainer" id="StackContainer" data-selected="Summary">
+                <div data-widget="contentPane" id="Summary" data-title="Summary" data-width="100px" data-height="800px">
+                    <div data-widget="table" data-model="#{tw}" data-props="itemIdentifier:'id', bindModel:'row'">
+                        <div data-widget="column" data-name="Id" data-width="10px">
+                            <div data-widget="link" data-label="#{row.id}"
+                                 data-href="#table/details?id=#{row.id}&amp;name=#{row.screenName}&amp;text=#{row.text}"></div>
+                        </div>
+                        <div data-widget="column" data-name="Name" data-width="100px">
+                            #{row.name}
+                        </div>
+                        <div data-widget="column" data-name="Handle" data-width="100px">
+                            #{row.screenName}
+                        </div>
+                        <div data-widget="column" data-name="Message" data-width="400px">
+                            #{row.text}
+                        </div>
+                    </div>
+                </div>
+                <div data-widget="contentPane" id="details" data-title="details">
+                    <h1>Tweet Details</h1>
+                    <table>
+                        <tr>
+                            <td>ScreenName:</td>
+                            <td>#{location.params.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td>#{location.params.text}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
