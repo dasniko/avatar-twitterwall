@@ -14,21 +14,15 @@
         <script data-type="TwitterModel" data-instance="tw" data-url="push/tweets"></script>
 
 		<h1>Avatar Twitterwall</h1>
-		<div style="width:100%;height:600px">
-            <div data-widget="stackContainer" id="StackContainer" data-selected="Summary">
-                <div data-widget="contentPane" id="Summary" data-title="Summary" data-width="100px" data-height="800px">
-                    <div data-widget="table" data-model="#{tw}" data-props="itemIdentifier:'id', bindModel:'row'">
-                        <div data-widget="column" data-name="Created" data-width="10%">
-                            #{row.createdAt}
-                        </div>
-                        <div data-widget="column" data-name="ScreenName" data-width="10%">
-                            @#{row.screenName}
-                        </div>
-                        <div data-widget="column" data-name="Text" data-width="80%">
-                            #{row.text}
-                        </div>
-                    </div>
-                </div>
+		<div data-widget="table" data-model="#{tw}" data-props="itemIdentifier:'id', bindModel:'row'">
+			<div data-widget="column" data-name="Created">
+				#{row.createdAt}
+			</div>
+			<div data-widget="column" data-name="ScreenName">
+				@#{row.screenName}
+			</div>
+			<div data-widget="column" data-name="Text">
+				#{row.text}
 			</div>
 		</div>
 		
