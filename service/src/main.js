@@ -31,26 +31,29 @@ var listener = new StatusListener({
 var twitter = new TwitterStreamFactory(conf.build()).instance;
 twitter.addListener(listener);
 
+// init tweets variable for async usage
+var tweets = {items: []};
 // register pushService
-var tweets;
 avatar.registerPushService({url: "push/tweets"},
     function() {
         this.onOpen = function(context) {
-			avatar.log("onOpen called");
-			context.setTimeout(1000);
+			avatar.log("onOpen called - start receiving Twitter updates");
+			context.setTimeout(100);
 			twitter.filter(new FilterQuery(0, [], ['Starbucks']));
 		},
 		this.onTimeout = function(context) {
+			// get last 25 Twitter messages from data provider
 			dataProvider.getCollection()
 				.then(function(result){
 					var data = result.data;
 					tweets = {items: _.last(data, 25).reverse()};
 				});
             context.setTimeout(2000);
+			// send tweets to client(s)
 			return context.sendMessage(tweets);
         },
 		this.onClose = function(context) {
-			avatar.log("onClose called");
+			avatar.log("onClose called - stop receiving Twitter updates");
 			twitter.cleanUp();
 		};
     }
