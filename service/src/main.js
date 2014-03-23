@@ -1,4 +1,4 @@
-"use strinct";
+"use strict";
 
 // requires
 var avatar = require("org/glassfish/avatar");
