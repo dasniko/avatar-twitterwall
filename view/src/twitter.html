@@ -7,18 +7,18 @@
     </head>
     <body>
         <script data-model="rest">
-            var Query = function(q) {
+            var Query = function (q) {
                 this.query = "";
-				this.onDeleteDone = function() {
+				this.onDeleteDone = function () {
 					this.query = "";
 				};
-				this.onGetDone = function() {
+				this.onGetDone = function () {
 					this.query = q;
-				}
+				};
             };
         </script>
 		<script data-model="push">
-            var TwitterModel = function() {
+            var TwitterModel = function () {
 				this.items = [];
             }
         </script>
