@@ -31,8 +31,21 @@ var listener = new StatusListener({
 var twitter = new TwitterStreamFactory(conf.build()).instance;
 twitter.addListener(listener);
 
-// init tweets variable for async usage
+// init local variables
+var query = "";
 var tweets = {items: []};
+
+// register restService for receiving search queries
+avatar.registerRestService({ url: "rest/query" },
+    function() {
+        this.onPut = function(request, response) {
+            query = request.data.query;
+			avatar.log("query received: " + query);
+            response.send(null);
+        };
+    }
+);
+
 // register pushService
 avatar.registerPushService({url: "push/tweets"},
     function() {

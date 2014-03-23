@@ -6,14 +6,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
-       <script data-model="push">
+        <script data-model="rest">
+            var Query = function() {
+                this.query = "";
+            };
+        </script>
+		<script data-model="push">
             var TwitterModel = function() {
 				this.items = [];
             }
         </script>
+		<script data-type="Query" data-instance="q" data-url="rest/query"></script>
         <script data-type="TwitterModel" data-instance="tw" data-url="push/tweets"></script>
 
 		<h1>Avatar Twitterwall</h1>
+		
+		<label for="sq">Search query: </label>
+		<input id="sq" data-value="#{q.query}"/>
+        <button onclick="#{q.put()}">Search</button>
+		
 		<div data-widget="table" data-model="#{tw}" data-props="itemIdentifier:'id', bindModel:'row'">
 			<div data-widget="column" data-name="Created">
 				#{row.createdAt}
