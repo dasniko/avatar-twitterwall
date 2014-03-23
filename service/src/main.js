@@ -32,20 +32,35 @@ var twitter = new TwitterStreamFactory(conf.build()).instance;
 twitter.addListener(listener);
 
 // init local variables
-var query = "";
-var tweets = {items: []};
+var query;
+var tweets;
+initVars = function() {
+	query = "";
+	tweets = {items: []};
+}
+
+stopTwitter = function() {
+	avatar.log("stop receiving Twitter updates");
+	twitter.cleanUp();
+	initVars();
+}
 
 // register restService for receiving search queries
 avatar.registerRestService({ url: "rest/query" },
     function() {
         this.onPut = function(request, response) {
             query = request.data.query;
-			avatar.log("query received: " + query);
+			avatar.log("onPut called: " + query);
 			if (query !== "") {
 				twitter.filter(new FilterQuery(0, [], [query]));
 			}
             response.send(null);
         };
+		this.onDelete = function(request, response) {
+			avatar.log("onDelete called");
+			stopTwitter();
+			response.send(null);
+		}
     }
 );
 
@@ -54,7 +69,8 @@ avatar.registerPushService({url: "push/tweets"},
     function() {
         this.onOpen = function(context) {
 			avatar.log("onOpen called - init push service");
-			context.setTimeout(100);
+			initVars();
+			context.setTimeout(1);
 		},
 		this.onTimeout = function(context) {
 			// get last 25 Twitter messages from data provider
@@ -68,8 +84,8 @@ avatar.registerPushService({url: "push/tweets"},
 			return context.sendMessage(tweets);
         },
 		this.onClose = function(context) {
-			avatar.log("onClose called - stop receiving Twitter updates");
-			twitter.cleanUp();
+			avatar.log("onClose called");
+			stopTwitter();
 		};
     }
 );

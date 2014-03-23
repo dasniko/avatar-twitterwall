@@ -9,6 +9,9 @@
         <script data-model="rest">
             var Query = function() {
                 this.query = "";
+				this.onDeleteDone = function() {
+					this.query = "";
+				}
             };
         </script>
 		<script data-model="push">
@@ -17,15 +20,16 @@
             }
         </script>
 		<script data-type="Query" data-instance="q" data-url="rest/query"></script>
-        <script data-type="TwitterModel" data-instance="tw" data-url="push/tweets"></script>
+        <script data-type="TwitterModel" data-instance="tm" data-url="push/tweets"></script>
 
 		<h1>Avatar Twitterwall</h1>
 		
 		<label for="sq">Search query: </label>
 		<input id="sq" data-value="#{q.query}"/>
         <button onclick="#{q.put()}">Search</button>
+		<button onclick="#{q.del()}">Stop</button>
 		
-		<div data-widget="table" data-model="#{tw}" data-props="itemIdentifier:'id', bindModel:'row'">
+		<div data-widget="table" data-model="#{tm}" data-props="itemIdentifier:'id', bindModel:'row'">
 			<div data-widget="column" data-name="Created">
 				#{row.createdAt}
 			</div>
@@ -37,7 +41,7 @@
 			</div>
 		</div>
 		
-		<!--<div data-widget="collection" data-props="items: #{tw.items}, bindModel: tweet">
+		<!--<div data-widget="collection" data-props="items: #{tm.items}, bindModel: tweet">
 			<div data-widget="collectionItem">
 				@#{tweet.screenName}: #{tweet.text}
 			</div>
