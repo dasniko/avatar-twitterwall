@@ -41,6 +41,9 @@ avatar.registerRestService({ url: "rest/query" },
         this.onPut = function(request, response) {
             query = request.data.query;
 			avatar.log("query received: " + query);
+			if (query !== "") {
+				twitter.filter(new FilterQuery(0, [], [query]));
+			}
             response.send(null);
         };
     }
@@ -50,9 +53,8 @@ avatar.registerRestService({ url: "rest/query" },
 avatar.registerPushService({url: "push/tweets"},
     function() {
         this.onOpen = function(context) {
-			avatar.log("onOpen called - start receiving Twitter updates");
+			avatar.log("onOpen called - init push service");
 			context.setTimeout(100);
-			twitter.filter(new FilterQuery(0, [], ['Starbucks']));
 		},
 		this.onTimeout = function(context) {
 			// get last 25 Twitter messages from data provider
