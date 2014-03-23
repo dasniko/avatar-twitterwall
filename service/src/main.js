@@ -60,6 +60,9 @@ avatar.registerRestService({ url: "rest/query" },
 			avatar.log("onDelete called");
 			stopTwitter();
 			response.send(null);
+		};
+		this.onGet = function(req, res) {
+			res.send(query || '');
 		}
     }
 );
@@ -76,8 +79,7 @@ avatar.registerPushService({url: "push/tweets"},
 			// get last 25 Twitter messages from data provider
 			dataProvider.getCollection()
 				.then(function(result){
-					var data = result.data;
-					tweets = {items: _.last(data, 25).reverse()};
+					tweets = {items: _.last(result.data, 25).reverse()};
 				});
             context.setTimeout(2000);
 			// send tweets to client(s)

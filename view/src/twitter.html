@@ -7,10 +7,13 @@
     </head>
     <body>
         <script data-model="rest">
-            var Query = function() {
+            var Query = function(q) {
                 this.query = "";
 				this.onDeleteDone = function() {
 					this.query = "";
+				};
+				this.onGetDone = function() {
+					this.query = q;
 				}
             };
         </script>
@@ -21,7 +24,7 @@
         </script>
 		<script data-type="Query" data-instance="q" data-url="rest/query"></script>
         <script data-type="TwitterModel" data-instance="tm" data-url="push/tweets"></script>
-
+		
 		<h1>Avatar Twitterwall</h1>
 		
 		<label for="sq">Search query: </label>
