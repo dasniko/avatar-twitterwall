@@ -26,21 +26,37 @@
         <button onclick="#{q.put()}">Search</button>
 		<button onclick="#{q.del()}">Stop</button>
 		
-		<div data-widget="table" data-model="#{tm}" data-props="itemIdentifier:'id', bindModel:'row'">
-			<div data-widget="column" data-name="Created">
-				#{row.createdAt}
+		<div data-widget="stackContainer" id="StackContainer" data-selected="Tweets">
+			<div data-widget="contentPane" id="Tweets" data-title="Tweets" data-width="100px" data-height="800px">
+				<div data-widget="table" data-model="#{tm}" data-props="itemIdentifier:'id', bindModel:'row'">
+					<div data-widget="column" data-name="Created">
+						#{row.createdAt}
+					</div>
+					<div data-widget="column" data-name="Status ID">
+						#{row.id}
+					</div>
+					<div data-widget="column" data-name="ScreenName">
+						<div data-widget="link" data-label="@#{row.user.screenName}"
+							data-href="#twitter/userDetails?screenName=#{row.user.screenName}&amp;name=#{row.user.name}&amp;bio=#{row.user.description}&amp;loc=#{row.user.location}"></div>
+					</div>
+					<div data-widget="column" data-name="Text">
+						#{row.text}
+					</div>
+				</div>
 			</div>
-			<div data-widget="column" data-name="ScreenName">
-				@#{row.user.screenName}
-			</div>
-			<div data-widget="column" data-name="Text">
-				#{row.text}
+			<div data-widget="contentPane" id="userDetails" data-title="User Details">
+				<h1>#{location.params.screenName}</h1>
+				<table>
+					<tr><td>Name:</td><td>#{location.params.name}</td></tr>
+					<tr><td>Location:</td<td>#{location.params.loc}</td></tr>
+					<tr><td>Bio:</td><td>#{location.params.bio}</td></tr>
+				</table>
 			</div>
 		</div>
 		
 		<!--<div data-widget="collection" data-props="items: #{tm.items}, bindModel: tweet">
 			<div data-widget="collectionItem">
-				@#{tweet.screenName}: #{tweet.text}
+				@#{tweet.user.screenName}: #{tweet.text}
 			</div>
 		</div>-->
 		

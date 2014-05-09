@@ -1,13 +1,5 @@
 /* Copyright 2012, Oracle and/or its affiliates. All Rights Reserved */
 
-/** Import the CSS for stamps widget */
-
-body, #avatar {
-    font-size: 11px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #131313;
-}
-
 .jquery .tablesorter caption {
     border: 2px solid #ccc;
     padding: 3px;
