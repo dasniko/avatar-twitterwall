@@ -2,19 +2,13 @@
 <html>
 <!-- License Information : https://java.net/projects/avatar/sources/git/content/legal/header.txt -->
     <head>
-        <title>Avatar Twitterwall</title>
+        <title>Avatar Twitterwall by @dasniko</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
         <script data-model="rest">
-            var Query = function (q) {
+            var Query = function () {
                 this.query = "";
-				this.onDeleteDone = function () {
-					this.query = "";
-				};
-				this.onGetDone = function () {
-					this.query = q;
-				};
             };
         </script>
 		<script data-model="push">
