@@ -37,14 +37,16 @@ twitter.addListener(listener);
 var query;
 var tweets;
 var initVars = function () {
-    query = "";
+    query = "starbucks";
     tweets = {items: []};
 };
+initVars();
 
 var stopTwitter = function () {
     avatar.log("stop receiving Twitter updates");
     twitter.cleanUp();
     initVars();
+	dataProvider.delCollection();
 };
 
 // register restService for receiving search queries
@@ -62,10 +64,11 @@ avatar.registerRestService(
         this.onDelete = function (request, response) {
             avatar.log("onDelete called");
             stopTwitter();
-            response.send(null);
+            response.send({query: ""});
         };
         this.onGet = function (req, res) {
-            res.send(query || '');
+			avatar.log("onGet called");
+            res.send({query: query});
         };
     }
 );
@@ -85,7 +88,7 @@ avatar.registerPushService(
                 .then(function (result) {
                     tweets = {items: _.last(result.data, 25).reverse()};
                 });
-            context.setTimeout(2000);
+            context.setTimeout(1000);
             // send tweets to client(s)
             return context.sendMessage(tweets);
         };
