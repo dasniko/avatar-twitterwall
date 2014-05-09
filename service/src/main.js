@@ -9,20 +9,21 @@ var _ = require("underscore-min");
 var TwitterStreamFactory = Java.type("twitter4j.TwitterStreamFactory");
 var FilterQuery = Java.type("twitter4j.FilterQuery");
 var StatusListener = Java.type("twitter4j.StatusListener");
+var Gson = Java.type("com.google.gson.Gson");
 
 // set up data provider
 var dataProvider = new avatar.FileDataProvider({filename: "/tmp/tweets.txt", key: "id"});
 dataProvider.delCollection();
 
+// init Gson
+var gson = new Gson();
+
 // set up Twitter listener
 var listener = new StatusListener({
     onStatus: function (status) {
         // convert the status Java object to a JSON object
-        var tweet = {id: status.id,
-            createdAt: (status.createdAt + ''),
-            screenName: status.user.screenName,
-            text: status.text};
-        dataProvider.create(tweet);
+		var tweet = JSON.parse(gson.toJson(status));
+		dataProvider.create(tweet);
     },
     onException: function (err) {
         avatar.log("t4jException occurred: " + err);
