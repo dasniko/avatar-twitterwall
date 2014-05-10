@@ -89,7 +89,7 @@ avatar.registerPushService(
                 .then(function (result) {
                     tweets = {items: _.last(result.data, 25).reverse()};
                 });
-            context.setTimeout(1000);
+            context.setTimeout(2000);
             // send tweets to client(s)
             return context.sendMessage(tweets);
         };

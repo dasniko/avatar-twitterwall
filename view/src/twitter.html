@@ -14,12 +14,20 @@
 		<script data-model="push">
             var TwitterModel = function () {
 				this.items = [];
+				this.onMessage = function(event) {
+					// you can omit this function, if you only want to have the defaults...
+					this.items = JSON.parse(event.data).items;
+					this.update();
+					// ...but sometimes I need this kind of debugging:
+					// console.log(this.items);
+				}
             }
         </script>
 		<script data-type="Query" data-instance="q" data-url="rest/query"></script>
         <script data-type="TwitterModel" data-instance="tm" data-url="push/tweets"></script>
 		
-		<h1>Avatar Twitterwall</h1>
+		<h1><a href="https://avatar.java.net" target="_blank">Project Avatar</a> Twitterwall <img src="./img/Twitter_logo_blue.png" style="height: 20px"/></h1>
+		<p>&amp;copy; by <a href="https://twitter.com/dasniko" target="_blank">@dasniko</a></p>
 		
 		<label for="sq">Search query: </label>
 		<input id="sq" data-value="#{q.query}"/>
@@ -48,8 +56,8 @@
 				<h1>#{location.params.screenName}</h1>
 				<table>
 					<tr><td>Name:</td><td>#{location.params.name}</td></tr>
-					<tr><td>Location:</td<td>#{location.params.loc}</td></tr>
 					<tr><td>Bio:</td><td>#{location.params.bio}</td></tr>
+					<tr><td>Location:</td><td>#{location.params.loc}</td></tr>
 				</table>
 			</div>
 		</div>
