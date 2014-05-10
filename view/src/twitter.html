@@ -44,6 +44,8 @@
 						#{row.id}
 					</div>
 					<div data-widget="column" data-name="ScreenName">
+						<div data-widget="img" data-namespace="http://application" data-src="#{row.user.profileImageUrl}"></div>
+						<br/>
 						<div data-widget="link" data-label="@#{row.user.screenName}"
 							data-href="#twitter/userDetails?screenName=#{row.user.screenName}&amp;name=#{row.user.name}&amp;bio=#{row.user.description}&amp;loc=#{row.user.location}"></div>
 					</div>

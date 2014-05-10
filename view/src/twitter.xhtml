@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://www.glassfish.org/avatar" data-newview="false">
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <a:definition id="img" type="uiNode">
+            <a:property name="src" type="exprR"/>
+            <a:constructor>
+                <![CDATA[
+                var Img = function (params, children, module) {
+                    org_glassfish_avatar.UiNode.call(this, params, children, org_glassfish_avatar);
+
+                    this.isDetached = false;
+					
+					/**
+					 * Presense of this method indicates that UI node is detachable.
+					 * This is used in table columns.
+					 */
+					this.detach = function () {
+						this.isDetached = true;
+					};
+					
+					this.render = function () {
+                        return "<img id='" + this.id + "' src='" + this.src + "'>";
+                    };
+
+                    this.setExpr = function (attr, value) {
+                        this[attr] = value;
+                        $("#" + this.id).attr("src", this.src);
+                    };
+                };
+                ]]>
+            </a:constructor>
+        </a:definition>
+    </body>
+</html>
