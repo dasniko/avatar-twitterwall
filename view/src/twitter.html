@@ -15,11 +15,14 @@
             var TwitterModel = function () {
 				this.items = [];
 				this.onMessage = function(event) {
-					// you can omit this function, if you only want to have the defaults...
-					this.items = JSON.parse(event.data).items;
-					this.update();
-					// ...but sometimes I need this kind of debugging:
-					// console.log(this.items);
+					// you can omit this function, if you only want to have the defaults (parse and update)
+					var tweets = JSON.parse(event.data).items;
+					// preserve the items in the local model, even if no (empty) items are sent from the server
+					if (tweets.length > 0) {
+						this.items = tweets;
+						this.update();
+						console.log(this.items);
+					}
 				}
             }
         </script>
