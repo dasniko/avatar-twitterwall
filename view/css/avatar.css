@@ -8,3 +8,7 @@
     font-size: 110%;
     background: #f9f9f9;
 }
+
+th.header, td.col {
+	font-size: 1.2em;
+}

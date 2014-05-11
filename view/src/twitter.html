@@ -37,19 +37,19 @@
 		<div data-widget="stackContainer" id="StackContainer" data-selected="Tweets">
 			<div data-widget="contentPane" id="Tweets" data-title="Tweets" data-width="100px" data-height="800px">
 				<div data-widget="table" data-model="#{tm}" data-props="itemIdentifier:'id', bindModel:'row'">
-					<div data-widget="column" data-name="Created">
+					<div data-widget="column" data-name="Date">
 						#{row.createdAt}
 					</div>
-					<div data-widget="column" data-name="Status ID">
+					<div data-widget="column" data-name="StatusID">
 						#{row.id}
 					</div>
-					<div data-widget="column" data-name="ScreenName">
+					<div data-widget="column" data-name="User">
 						<div data-widget="img" data-namespace="http://application" data-src="#{row.user.profileImageUrl}"></div>
-						<br/>
+						<span>&amp;nbsp;</span>
 						<div data-widget="link" data-label="@#{row.user.screenName}"
 							data-href="#twitter/userDetails?screenName=#{row.user.screenName}&amp;name=#{row.user.name}&amp;bio=#{row.user.description}&amp;loc=#{row.user.location}"></div>
 					</div>
-					<div data-widget="column" data-name="Text">
+					<div data-widget="column" data-name="Message">
 						#{row.text}
 					</div>
 				</div>
