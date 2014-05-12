@@ -1,0 +1,61 @@
+<html ng-app="tweets">
+<head>
+	<title>Avatar Twitterwall - AngularJS Client</title>
+	<script src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
+	<link rel="stylesheet" href="http://bootswatch.com/amelia/bootstrap.min.css" />
+	<style>body {margin: 10px;}</style>
+</head>
+<body>
+	<div ng-controller="TweetsCtrl">
+		<h1>Avatar Twitterwall - AngularJS Client</h2>
+		<hr/>
+		<table style="width: 100%">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Id</th>
+					<th>User</th>
+					<th>Message</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in tweets">
+					<td>{{ t.createdAt }}</td>
+					<td>{{ t.id }}</td>
+					<td><img src="{{ t.user.profileImageUrl }}" /> @{{ t.user.screenName }}</td>
+					<td>{{ t.text }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+<script>
+angular.module('tweets', []).factory('sseClient', function($rootScope) {
+	var sse = new EventSource('/avatar-twitterwall/push/tweets');
+	return {
+		addEventListener: function(eventName, callback) {
+			sse.addEventListener(eventName, function() {
+				var args = arguments;
+				$rootScope.$apply(function () {
+					callback.apply(sse, args);
+				});
+			});
+		}
+	};
+});
+
+function TweetsCtrl($scope, sseClient) {
+	$scope.tweets = [];
+
+	sseClient.addEventListener('message', function (e) {
+		//console.log(e.data);
+		var tweets = JSON.parse(e.data).items;
+		if (tweets.length > 0) {
+			if ($scope.tweets.length === 0 || tweets[0].id != $scope.tweets[0].id) {
+				$scope.tweets = tweets;
+			}
+		}
+	});
+}
+</script>
+</html>
