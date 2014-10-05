@@ -1,7 +1,9 @@
 Avatar Twitterwall
 ==================
 
-This is a small demo for a kind of a twitterwall, build with [Project Avatar](https://avatar.java.net).
+This is a small demo for a kind of a twitterwall, build with [Project Avatar 1.0-ea](https://avatar.java.net).
+
+_**This demo might not work any more, since it was built upon Project Avatar 1.0, which will be replaced by a totally new Avatar 2.0 version!**_
 
 Project Avatar is based on the [Nashorn](http://openjdk.java.net/projects/nashorn/) ([Blog](https://blogs.oracle.com/nashorn/)) JavaScript engine of [Java Development Kit 8](https://jdk8.java.net/).<br/>
 Currently, Project Avatar needs a [Glassfish 4](https://glassfish.java.net) application server to run.<br/>
